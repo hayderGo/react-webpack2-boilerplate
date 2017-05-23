@@ -7,12 +7,11 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 const dashboard = new Dashboard();
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     quiet: true,
-    progress: true,
     inline: true,
     contentBase: './app',
     port: 9090

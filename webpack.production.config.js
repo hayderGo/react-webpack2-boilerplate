@@ -4,8 +4,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const lessPrefixer = require('less-plugin-autoprefix');
-const autoPrefixer = require('autoprefixer');
+const AutoPrefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dashboard = require('webpack-dashboard');
 const DashboardPlugin = require('webpack-dashboard/plugin');
@@ -34,7 +33,7 @@ module.exports = {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: [autoPrefixer]
+                plugins: [AutoPrefixer]
               }
             },
             'less-loader'

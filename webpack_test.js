@@ -97,7 +97,10 @@ module.exports = (env = 'dev') => {
               }
             },
             {
-              loader: 'postcss-loader', options: {plugins: [WebkitPrefixer]}
+              loader: 'postcss-loader',
+              options: {
+                plugins: [WebkitPrefixer]
+              }
             }
           ]
         },
@@ -111,7 +114,10 @@ module.exports = (env = 'dev') => {
               }
             },
             {
-              loader: 'postcss-loader', options: {plugins: [WebkitPrefixer]}
+              loader: 'postcss-loader',
+              options: {
+                plugins: [WebkitPrefixer]
+              }
             },
             {
               loader: 'less-loader',

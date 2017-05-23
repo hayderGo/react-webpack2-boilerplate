@@ -50,3 +50,4 @@ lib
 # Editor
 .idea
 /react-babel-webpack-boilerplate-webpack2.zip
+/webpack_test.js

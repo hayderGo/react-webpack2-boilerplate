@@ -12,7 +12,7 @@
     "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .",
     "test": "npm run lint",
     "build": "webpack",
-    "start": "webpack",
+    "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
     "deploy": "NODE_ENV=production webpack --config webpack.production.config.js",
     "pub": "SET NODE_ENV=production & webpack --config webpack.production.config.js"
   },
@@ -48,13 +48,11 @@
     "husky": "^0.12.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
-    "less-plugin-autoprefix": "^1.5.1",
     "open-browser-webpack-plugin": "0.0.3",
     "postcss-loader": "^2.0.5",
     "style-loader": "~0.13.1",
     "url-loader": "^0.5.8",
     "webpack": "latest",
-    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dashboard": "^0.4.0",
     "webpack-dev-server": "latest",
     "webpack-md5-hash": "0.0.5"

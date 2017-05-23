@@ -85,7 +85,8 @@ module.exports = (env = 'dev') => {
                 }]].filter(hasValue)
             }
           }]
-        }, {
+        },
+        {
           test: /\.css$/,
           use: ['style-loader',
             {
@@ -96,10 +97,11 @@ module.exports = (env = 'dev') => {
               }
             },
             {
-              loader: 'postcss-loader', options: { plugins: [WebkitPrefixer] }
+              loader: 'postcss-loader', options: {plugins: [WebkitPrefixer]}
             }
           ]
-        }, {
+        },
+        {
           test: /\.less$/,
           use: ['style-loader',
             {
@@ -109,7 +111,7 @@ module.exports = (env = 'dev') => {
               }
             },
             {
-              loader: 'postcss-loader', options: { plugins: [WebkitPrefixer] }
+              loader: 'postcss-loader', options: {plugins: [WebkitPrefixer]}
             },
             {
               loader: 'less-loader',

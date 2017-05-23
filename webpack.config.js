@@ -7,10 +7,12 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 const dashboard = new Dashboard();
 
 module.exports = {
+  devtool: 'eval-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     quiet: true,
+    progress: true,
     inline: true,
     contentBase: './app',
     port: 9090
@@ -21,7 +23,6 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -47,15 +48,6 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'babel-loader']
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000
-          }
-        }]
       }
     ]
   },

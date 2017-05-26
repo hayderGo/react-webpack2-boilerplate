@@ -30,6 +30,10 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+
+  &.winner {
+    color: red;
+  }
 }
 
 .square:focus {
@@ -47,4 +51,10 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+
+  li {
+    &.active {
+      font-weight: bold;
+    }
+  }
 }

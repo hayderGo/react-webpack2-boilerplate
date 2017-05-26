@@ -12,10 +12,10 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 const dashboard = new Dashboard();
 
 module.exports = {
-  devtool: 'eval-source-map',
+  // devtool: 'source-map',
   entry: {
     vendor: ['react', 'react-dom', 'react-router'],
-    main: path.resolve(__dirname, 'app/main.jsx')
+    main: path.resolve(__dirname, 'src/main.jsx')
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -29,7 +29,12 @@ module.exports = {
         test: /\.(less|css)$/,
         use: ExtractTextPlugin.extract({
           use: [
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
             {
               loader: 'postcss-loader',
               options: {
@@ -53,7 +58,7 @@ module.exports = {
       },
       {
         test: /\.js[x]?$/,
-        include: path.resolve(__dirname, 'app'),
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: [
           'babel-loader']
@@ -75,16 +80,27 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([path.resolve(__dirname, 'build')]),
     new HtmlWebpackPlugin({
-      template: './app/template.html'
+      template: './src/template.html',
+      minify: {
+        removeComments: true, // 清除HTML注释
+        collapseWhitespace: true, // 压缩HTML
+        collapseBooleanAttributes: true, // 省略布尔属性的值 <input checked="true"/> ==> <input />
+        removeEmptyAttributes: true, // 删除所有空格作属性值 <input id="" /> ==> <input />
+        removeScriptTypeAttributes: true, // 删除<script>的type="text/javascript"
+        removeStyleLinkTypeAttributes: true, // 删除<style>和<link>的type="text/css"
+        minifyJS: true, // 压缩页面JS
+        minifyCSS: true // 压缩页面CSS
+      }
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
       }
     }),
+    new webpack.optimize.UglifyJsPlugin(),
     // 修复webpack的chunkhash不以chunk文件实际内容为准的问题
     new WebpackMd5Hash(),
     new ExtractTextPlugin({
@@ -92,17 +108,12 @@ module.exports = {
       disable: false,
       allChunks: false,
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     // new CopyWebpackPlugin([
     //   {
-    //     from: './app/index.html', to: 'index.html'
+    //     from: './src/index.html', to: 'index.html'
     //   },
     // {
-    //   from: './app/main.css', to: 'main.css'
+    //   from: './src/main.css', to: 'main.css'
     // }
     // ]),
     new DashboardPlugin(dashboard.setData)

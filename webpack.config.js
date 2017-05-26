@@ -13,10 +13,10 @@ module.exports = {
     hot: true,
     quiet: true,
     inline: true,
-    contentBase: './app',
+    contentBase: './src',
     port: 9090
   },
-  entry: path.resolve(__dirname, 'app/main.jsx'),
+  entry: path.resolve(__dirname, 'src/main.jsx'),
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
@@ -26,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, 'app'),
+        include: path.resolve(__dirname, 'src'),
         use: [
           'style-loader',
           'css-loader'
@@ -34,7 +34,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        include: path.resolve(__dirname, 'app'),
+        include: path.resolve(__dirname, 'src'),
         use: [
           'style-loader',
           'css-loader',
@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.js[x]?$/,
-        include: path.resolve(__dirname, 'app'),
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: [
           'babel-loader']

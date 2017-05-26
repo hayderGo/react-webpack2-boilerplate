@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.less';
+import './HelloWorld.less';
 
-export default () => <h1>Hello World</h1>;
+export default () => <h1 className="helloWorld">Hello World</h1>;
 
 /*
 export default class App extends React.Component {

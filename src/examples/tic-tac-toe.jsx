@@ -1,6 +1,7 @@
 /* eslint react/prop-types: 0 */
 /* eslint react/no-multi-comp: 0 */
 /* eslint react/prefer-stateless-function: 0 */
+/* eslint jsx-a11y/href-no-hash:0 */
 import React, { Component } from 'react';
 import './tic-tac-toe.less';
 
@@ -66,11 +67,12 @@ export default class Game extends Component {
       history: [{
         squares: Array(9).fill(null)
       }],
+      stepNumber: 0,
       nextState: 'O'
     };
   }
   handleClick = (i) => {
-    const history = this.state.history;
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (squares[i] || calculateWinner(squares)) {
@@ -78,16 +80,35 @@ export default class Game extends Component {
     }
     squares[i] = this.state.nextState;
     this.setState({
-      nextState: this.state.nextState === 'O' ? 'X' : 'O',
-      history: this.state.history.concat([{
+      // history: this.state.history.concat([{
+      //   squares
+      // }]),
+      history: history.concat({
         squares
-      }])
+      }),
+      // stepNumber: history.length,
+      stepNumber: this.state.stepNumber + 1,
+      nextState: this.state.nextState === 'O' ? 'X' : 'O'
+    });
+  }
+  jumpTo = (index) => {
+    this.setState({
+      stepNumber: index,
+      nextState: index % 2 === 0 ? 'O' : 'X'
     });
   }
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const moves = history.map((step, index) => {
+      const desc = index ? `Move #${index}` : 'Game Start';
+      return (
+        <li key={Math.random()}>
+          <a href="#" onClick={() => this.jumpTo(index)}>{desc}</a>
+        </li>
+      );
+    });
     let status;
     if (winner) {
       status = `Winner ${winner}!`;
@@ -108,7 +129,7 @@ export default class Game extends Component {
         <div className="game-info">
           {status}
           <ol>
-            {}
+            {moves}
           </ol>
         </div>
       </div>

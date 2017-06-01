@@ -39,7 +39,12 @@
     "promise/param-names": 2,
     "promise/always-return": 2,
     "promise/catch-or-return": 2,
-    "promise/no-native": 0
+    "promise/no-native": 0,
+
+    "no-continue": 0,
+    "no-trailing-spaces": 0,
+    "react/prop-types": 0,
+    "import/no-webpack-loader-syntax": 0
   },
   "plugins": [
     "compat",

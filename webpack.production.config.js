@@ -14,14 +14,14 @@ const dashboard = new Dashboard();
 module.exports = {
   // devtool: 'source-map',
   entry: {
-    vendor: ['react', 'react-dom', 'react-router'],
+    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom', 'echarts/lib/echarts'],
     main: path.resolve(__dirname, 'src/main.jsx')
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: './',
-    filename: '[name]_[chunkHash:8].js',
-    chunkFilename: '[name]_[chunkHash:8].js'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/react-demo/dist/',
+    filename: '[id]_[name]_[chunkHash:8].js',
+    chunkFilename: '[id]_[name]_[chunkHash:8].js'
   },
   module: {
     rules: [
@@ -53,8 +53,8 @@ module.exports = {
             //   }
             // }
           ],
-          fallback: 'style-loader',
-        }),
+          fallback: 'style-loader'
+        })
       },
       {
         test: /\.js[x]?$/,
@@ -78,7 +78,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, 'build')]),
+    new CleanWebpackPlugin([path.resolve(__dirname, 'dist')]),
     new HtmlWebpackPlugin({
       template: './src/template.html',
       minify: {
@@ -100,13 +100,25 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,    // 不美化输出
+      compress: {
+        warnings: false, // 不保留警告
+        drop_debugger: true, // 不保留调试语句
+        drop_console: true // 不保留控制台输出信息
+      },
+      mangle: {           // 跳过这些，不改变命名
+        except: ['$super', '$', 'exports', 'require']
+      },
+      space_colon: false,
+      comments: false     // 不保留注释
+    }),
     // 修复webpack的chunkhash不以chunk文件实际内容为准的问题
     new WebpackMd5Hash(),
     new ExtractTextPlugin({
       filename: 'main_[chunkHash:8].css',
       disable: false,
-      allChunks: false,
+      allChunks: false
     }),
     // new CopyWebpackPlugin([
     //   {

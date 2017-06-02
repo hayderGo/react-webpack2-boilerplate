@@ -113,7 +113,7 @@ const Chart = ({ match }) => {
   }
   return (
     <Bundle load={Container}>
-      {(Chart) => <Chart />}
+      {(Chart) => <Chart ajax="123" />}
     </Bundle>
   );
 };

@@ -1,3 +1,5 @@
+在阮一峰老师的配置基础上修改的 ---> https://github.com/ruanyf/react-babel-webpack-boilerplate/tree/webpack2
+
 This repo is a boilerplate for React-Babel-Webpack project. You could use it as a base to build your own web app.
 
 ## Features
